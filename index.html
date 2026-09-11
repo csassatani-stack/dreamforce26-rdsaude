@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RD Saúde | Dreamforce 2026</title>
+<style>
+:root{
+  --bg:#0b0f14; --card:#121822; --accent:#00a1e0; --accent2:#7f3fbf;
+  --text:#eef3f7; --muted:#9fb0bd; --border:#233241;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{font-family:'Segoe UI',Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.5;}
+a{color:var(--accent); text-decoration:none;}
+.container{max-width:1100px; margin:0 auto; padding:0 24px;}
+
+header.hero{
+  background:linear-gradient(135deg, #04121f 0%, #0b2436 45%, #142a45 100%);
+  padding:90px 0 60px; text-align:center; border-bottom:1px solid var(--border);
+  position:relative; overflow:hidden;
+}
+header.hero::before{
+  content:""; position:absolute; top:-100px; right:-100px; width:400px; height:400px;
+  background:radial-gradient(circle, rgba(0,161,224,0.25), transparent 70%); border-radius:50%;
+}
+.tag{display:inline-block; background:rgba(0,161,224,0.15); color:var(--accent); padding:6px 16px; border-radius:20px; font-size:13px; letter-spacing:1px; text-transform:uppercase; margin-bottom:18px; border:1px solid rgba(0,161,224,0.4);}
+h1.title{font-size:52px; font-weight:800; margin-bottom:10px; background:linear-gradient(90deg,#fff,#9fd8f5); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.subtitle{font-size:19px; color:var(--muted); max-width:680px; margin:0 auto 26px;}
+.meta-row{display:flex; justify-content:center; gap:28px; flex-wrap:wrap; font-size:14px; color:var(--muted); margin-top:10px;}
+.meta-row span{display:flex; align-items:center; gap:6px;}
+
+nav.tabs{
+  position:sticky; top:0; z-index:50; background:rgba(11,15,20,0.95); backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border); display:flex; justify-content:center; gap:6px; padding:10px 0; flex-wrap:wrap;
+}
+nav.tabs a{padding:8px 16px; border-radius:8px; font-size:14px; color:var(--muted); font-weight:600;}
+nav.tabs a:hover, nav.tabs a.active{background:var(--accent); color:#04121f;}
+
+section{padding:60px 0; border-bottom:1px solid var(--border);}
+h2.section-title{font-size:30px; margin-bottom:8px; font-weight:800;}
+p.section-sub{color:var(--muted); margin-bottom:36px; font-size:16px;}
+
+.stats{display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-top:20px;}
+.stat{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px; text-align:center;}
+.stat .num{font-size:32px; font-weight:800; color:var(--accent);}
+.stat .label{font-size:13px; color:var(--muted); margin-top:6px;}
+
+.grid-cards{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+.card{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; transition:.2s;}
+.card:hover{border-color:var(--accent); transform:translateY(-3px);}
+.card h3{font-size:17px; margin-bottom:8px;}
+.card p{color:var(--muted); font-size:14px;}
+.pill{display:inline-block; font-size:11px; font-weight:700; padding:3px 10px; border-radius:12px; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px;}
+.pill.keynote{background:rgba(127,63,191,.25); color:#c9a3ef;}
+.pill.retail{background:rgba(0,161,224,.25); color:#7fd3f7;}
+.pill.health{background:rgba(46,204,113,.2); color:#7be3a6;}
+.pill.social{background:rgba(255,159,67,.2); color:#ffbf80;}
+.pill.brz{background:rgba(255,213,79,.2); color:#ffe08a;}
+
+.day-block{margin-bottom:34px;}
+.day-header{display:flex; align-items:baseline; gap:12px; margin-bottom:16px;}
+.day-header h3{font-size:22px; color:var(--accent);}
+.day-header span{color:var(--muted); font-size:14px;}
+.session{display:grid; grid-template-columns:110px 1fr; gap:18px; padding:16px 0; border-top:1px solid var(--border);}
+.session .time{color:var(--accent); font-weight:700; font-size:14px;}
+.session .time small{display:block; color:var(--muted); font-weight:400; font-size:12px;}
+.session .info h4{font-size:16px; margin-bottom:4px;}
+.session .info p{color:var(--muted); font-size:13.5px;}
+.session .info .loc{font-size:12.5px; color:#7fb8d6; margin-top:4px;}
+
+.checklist{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+.check-item{background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px 16px; display:flex; gap:10px; align-items:flex-start; font-size:14.5px;}
+.check-item .box{width:18px; height:18px; border:2px solid var(--accent); border-radius:4px; flex-shrink:0; margin-top:2px;}
+
+.contacts{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+.contact{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; text-align:center;}
+.avatar{width:56px; height:56px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent2)); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; margin:0 auto 10px;}
+.contact h4{font-size:15px;}
+.contact p{color:var(--muted); font-size:12.5px; margin-top:2px;}
+
+footer{padding:40px 0; text-align:center; color:var(--muted); font-size:13px;}
+@media(max-width:800px){
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .grid-cards{grid-template-columns:1fr;}
+  .checklist{grid-template-columns:1fr;}
+  .contacts{grid-template-columns:repeat(2,1fr);}
+  .session{grid-template-columns:80px 1fr;}
+  h1.title{font-size:34px;}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <div class="tag">Guia Exclusivo · RD Saúde</div>
+    <h1 class="title">Dreamforce 2026</h1>
+    <p class="subtitle">Seu guia personalizado para uma experiência de alto impacto em São Francisco — sessões, eventos e contatos pensados para a jornada de saúde e varejo farmacêutico da RD Saúde.</p>
+    <div class="meta-row">
+      <span>📍 San Francisco · Moscone Center</span>
+      <span>📅 14–17 de Setembro, 2026</span>
+      <span>🏢 RD Saúde</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs">
+  <a href="#visao-geral">Visão Geral</a>
+  <a href="#checklist">Checklist</a>
+  <a href="#agenda">Agenda Recomendada</a>
+  <a href="#eventos">Eventos Sociais</a>
+  <a href="#dicas">Dicas de SF</a>
+  <a href="#contatos">Contatos</a>
+</nav>
+
+<section id="visao-geral">
+  <div class="container">
+    <h2 class="section-title">Agenda em Resumo</h2>
+    <p class="section-sub">Três dias. Impacto ilimitado. A sua vez, RD Saúde.</p>
+    <div class="stats">
+      <div class="stat"><div class="num">1.600+</div><div class="label">Sessões para todos os produtos e indústrias</div></div>
+      <div class="stat"><div class="num">50+</div><div class="label">Keynotes visionários e de produto</div></div>
+      <div class="stat"><div class="num">150+</div><div class="label">Treinamentos práticos e demos</div></div>
+      <div class="stat"><div class="num">240+</div><div class="label">Mesas-redondas com seus pares</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="checklist">
+  <div class="container">
+    <h2 class="section-title">Checklist de Viagem</h2>
+    <p class="section-sub">Antes de partir para São Francisco.</p>
+    <div class="checklist">
+      <div class="check-item"><div class="box"></div>Passaporte válido por 6+ meses além das datas da viagem</div>
+      <div class="check-item"><div class="box"></div>Visto americano válido (B1/B2 ou aplicável)</div>
+      <div class="check-item"><div class="box"></div>E-mail de confirmação do registro no Dreamforce</div>
+      <div class="check-item"><div class="box"></div>Baixar o app Salesforce Events (iOS e Android)</div>
+      <div class="check-item"><div class="box"></div>Adicionar sessões à agenda com antecedência — vagas enchem rápido</div>
+      <div class="check-item"><div class="box"></div>Levar roupas em camadas — Setembro em SF é 14–22°C</div>
+      <div class="check-item"><div class="box"></div>Adaptador de tomada americano (Tipo A/B) + power bank</div>
+      <div class="check-item"><div class="box"></div>Sapatos confortáveis — espere 15.000+ passos por dia</div>
+      <div class="check-item"><div class="box"></div>Confirmar horários de reuniões executivas com seu time Salesforce</div>
+      <div class="check-item"><div class="box"></div>Retirar o crachá pessoalmente no Moscone West, Lobby Level</div>
+    </div>
+  </div>
+</section>
+
+<section id="agenda">
+  <div class="container">
+    <h2 class="section-title">Sessões Recomendadas para RD Saúde</h2>
+    <p class="section-sub">Curadoria por dia — foco em Healthcare, Varejo e Agentforce.</p>
+
+    <div class="day-block">
+      <div class="day-header"><h3>Terça · 15 de Setembro</h3><span>Keynote Principal + Sessões de Abertura</span></div>
+
+      <div class="session">
+        <div class="time">10:00 AM<small>2:00 PM BRT</small></div>
+        <div class="info"><span class="pill keynote">Keynote</span>
+          <h4>Dreamforce Main Keynote 2026</h4>
+          <p>A sessão mais importante do evento — visão de Marc Benioff sobre IA, dados e a empresa agêntica.</p>
+          <div class="loc">📍 Moscone South, LL, Keynote Hall B</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">12:30 PM<small>4:30 PM BRT</small></div>
+        <div class="info"><span class="pill retail">Varejo</span>
+          <h4>Build an Agentic B2B Marketing and Sales Playbook</h4>
+          <p>Como construir um playbook autônomo de marketing e vendas B2B com Agentforce — aplicável a redes de distribuição e franquias.</p>
+          <div class="loc">📍 Moscone West, L2, Room 2006</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">5:30 PM<small>9:30 PM BRT</small></div>
+        <div class="info"><span class="pill health">Healthcare</span>
+          <h4>Healthcare Dinner Event</h4>
+          <p>Jantar exclusivo reunindo clientes de Healthcare para conversas e conexões entre pares do setor.</p>
+          <div class="loc">📍 Heartwood San Francisco, 531 Commercial St</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-block">
+      <div class="day-header"><h3>Quarta · 16 de Setembro</h3><span>Healthcare Summit + Agentforce ROI</span></div>
+
+      <div class="session">
+        <div class="time">7:45 AM<small>11:45 AM BRT</small></div>
+        <div class="info"><span class="pill health">Healthcare</span>
+          <h4>Salesforce Healthcare Provider Summit</h4>
+          <p>Primeiro Healthcare Provider Summit do Dreamforce — encontro exclusivo com executivos e clientes-chave do setor de saúde.</p>
+          <div class="loc">📍 The Palace Hotel, Ralston Ballroom (9 min a pé do Moscone)</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">10:30 AM<small>2:30 PM BRT</small></div>
+        <div class="info"><span class="pill keynote">Keynote</span>
+          <h4>Agentforce Keynote: From Fast Start to Real ROI</h4>
+          <p>Como empresas evoluem do piloto Agentforce ao ROI mensurável — histórias reais e o que é preciso para escalar IA na empresa.</p>
+          <div class="loc">📍 Moscone South, LL, Keynote – Hall B</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">1:00 PM<small>5:00 PM BRT</small></div>
+        <div class="info"><span class="pill retail">Varejo</span>
+          <h4>B2B Service Reinvented: From Cost Center to Growth Engine</h4>
+          <p>Como transformar o pós-venda de centro de custo em motor de crescimento com Salesforce — relevante para farmácias e serviços ao consumidor.</p>
+          <div class="loc">📍 Metreon AMC, L3, Theatre 10</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">6:00 PM<small>10:00 PM BRT</small></div>
+        <div class="info"><span class="pill social">Social</span>
+          <h4>Dreamfest 2026 — Show no Giants Ballpark</h4>
+          <p>Concerto beneficente em prol do UCSF Benioff Children's Hospitals. Crachá + documento com foto obrigatórios (21+).</p>
+          <div class="loc">📍 Oracle Park (Giants Ballpark)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-block">
+      <div class="day-header"><h3>Quinta · 17 de Setembro</h3><span>Encerramento e Próximos Passos</span></div>
+
+      <div class="session">
+        <div class="time">9:30 AM<small>1:30 PM BRT</small></div>
+        <div class="info"><span class="pill keynote">Keynote</span>
+          <h4>Field Service Keynote: A New Frontier for Field Operations</h4>
+          <p>Novidades em operações de campo e atendimento — aplicável à logística de distribuição da RD Saúde.</p>
+          <div class="loc">📍 Moscone South, LL, Keynote - Hall A</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">1:00 PM<small>5:00 PM BRT</small></div>
+        <div class="info"><span class="pill retail">Varejo</span>
+          <h4>Build an Agent in 60 Minutes, One That Finds and Wins Buyers</h4>
+          <p>Workshop prático de criação de agentes de IA orientados a vendas e conversão.</p>
+          <div class="loc">📍 A confirmar — consulte o app Salesforce Events</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="eventos">
+  <div class="container">
+    <h2 class="section-title">Eventos Sociais & Networking</h2>
+    <p class="section-sub">Oportunidades de conexão fora das sessões oficiais.</p>
+    <div class="grid-cards">
+      <div class="card"><span class="pill social">Segunda</span><h3>HLS Monday Night Football Party</h3><p>Festa de abertura para clientes de Healthcare & Life Sciences, antes do início oficial do evento. 5:00–9:00 PM.</p></div>
+      <div class="card"><span class="pill brz">Empresas 🇧🇷</span><h3>Beyond the Hype — Itaú & Arcos Dourados</h3><p>Sessão brasileira sobre serviço autônomo em varejo e finanças — insights aplicáveis a farmácias. Ter 15/09, 12:30 PM.</p></div>
+      <div class="card"><span class="pill brz">Empresas 🇧🇷</span><h3>How iFood Built an AI Agent</h3><p>iFood compartilha como construiu um agente de IA para lidar com um momento viral em escala. Qua 16/09, 11:00 AM.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="dicas">
+  <div class="container">
+    <h2 class="section-title">Dicas de São Francisco</h2>
+    <p class="section-sub">O essencial para se mover e aproveitar a cidade durante o evento.</p>
+    <div class="grid-cards">
+      <div class="card"><h3>🚌 Locomoção</h3><p>Priorize caminhar ou usar BART/Muni — trânsito e estacionamento ficam caóticos durante o Dreamforce. Uber/Lyft com preços altos nos horários de pico.</p></div>
+      <div class="card"><h3>🕐 Fuso Horário</h3><p>PDT (UTC-7) — 4 horas atrás de Brasília (BRT = UTC-3). Ajuste reuniões e lembretes com antecedência.</p></div>
+      <div class="card"><h3>🍽️ Almoço</h3><p>As filas do almoço no Moscone são longas — almoce cedo (11h30) ou saia para restaurantes no SoMa.</p></div>
+      <div class="card"><h3>🔋 Fique Carregado</h3><p>Seu celular é seu crachá, agenda e mapa — leve um power bank e cabo, há estações de carregamento pelos prédios.</p></div>
+      <div class="card"><h3>🪪 Retirada de Crachá</h3><p>Todos devem retirar o próprio crachá pessoalmente no Moscone West, 800 Howard St — leve e-mail de confirmação + documento com foto.</p></div>
+      <div class="card"><h3>⏰ Chegue Cedo aos Keynotes</h3><p>Chegue ao Moscone West 45–60 min antes — filas se formam cedo e assentos são por ordem de chegada.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="contatos">
+  <div class="container">
+    <h2 class="section-title">Seu Time Salesforce</h2>
+    <p class="section-sub">Conte com a gente durante todo o evento.</p>
+    <div class="contacts">
+      <div class="contact"><div class="avatar">CS</div><h4>Cris Sassatani</h4><p>Cloud Account Executive</p></div>
+      <div class="contact"><div class="avatar">NB</div><h4>Natalia Bodstein</h4><p>Conta RD Saúde</p></div>
+      <div class="contact"><div class="avatar">KZ</div><h4>Kadu Zagatti</h4><p>Time de Conta</p></div>
+      <div class="contact"><div class="avatar">EQ</div><h4>Equipe de Especialistas</h4><p>Healthcare & Agentforce</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Dreamforce 2026 · RD Saúde × Salesforce · San Francisco, 14–17 de Setembro
+  </div>
+</footer>
+
+</body>
+</html>
